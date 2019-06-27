@@ -1,21 +1,11 @@
 Could not create config directory: mkdir .config: read-only file system.API server listening at: [::]:5555
-2019-06-27T02:19:44Z info layer=debugger launching process with args: [/var/task/bin/hello]
-2019-06-27T02:20:43Z debug layer=debugger continuing
-[32mSTART RequestId: 63f6b172-7da5-1cae-21d5-a2ad755e5595 Version: $LATEST[0m
-[32mEND RequestId: 63f6b172-7da5-1cae-21d5-a2ad755e5595[0m
-[32mREPORT RequestId: 63f6b172-7da5-1cae-21d5-a2ad755e5595	Duration: 2.39 ms	Billed Duration: 100 ms	Memory Size: 128 MB	Max Memory Used: 28 MB	[0m
-Could not create config directory: mkdir .config: read-only file system.API server listening at: [::]:5555
-2019-06-27T02:21:54Z info layer=debugger launching process with args: [/var/task/bin/hello]
-2019-06-27T02:23:04Z info layer=debugger created breakpoint: &api.Breakpoint{ID:1, Name:"", Addr:0x6dea96, File:"/Users/luis/go/src/github.com/lueimg/my-test-go-services/hello/main.go", Line:25, FunctionName:"main.Handler", Cond:"", Tracepoint:false, TraceReturn:false, Goroutine:false, Stacktrace:0, Variables:[]string(nil), LoadArgs:(*api.LoadConfig)(nil), LoadLocals:(*api.LoadConfig)(nil), HitCount:map[string]uint64{}, TotalHitCount:0x0}
-2019-06-27T02:23:04Z info layer=debugger created breakpoint: &api.Breakpoint{ID:2, Name:"", Addr:0x6de8ce, File:"/Users/luis/go/src/github.com/lueimg/my-test-go-services/hello/main.go", Line:20, FunctionName:"main.Handler", Cond:"", Tracepoint:false, TraceReturn:false, Goroutine:false, Stacktrace:0, Variables:[]string(nil), LoadArgs:(*api.LoadConfig)(nil), LoadLocals:(*api.LoadConfig)(nil), HitCount:map[string]uint64{}, TotalHitCount:0x0}
-2019-06-27T02:23:04Z debug layer=debugger continuing
-[32mSTART RequestId: f7882913-8c9d-15bf-ec98-aeaa2622d5a1 Version: $LATEST[0m
-2019-06-27T02:23:27Z debug layer=debugger nexting
-2019-06-27T02:23:29Z debug layer=debugger nexting
-2019-06-27T02:23:31Z debug layer=debugger nexting
-2019-06-27T02:23:33Z debug layer=debugger nexting
-2019-06-27T02:23:44Z debug layer=debugger continuing
-[32mEND RequestId: f7882913-8c9d-15bf-ec98-aeaa2622d5a1[0m
-[32mREPORT RequestId: f7882913-8c9d-15bf-ec98-aeaa2622d5a1	Duration: 39671.58 ms	Billed Duration: 39700 ms	Memory Size: 128 MB	Max Memory Used: 91 MB	[0m
-Could not create config directory: mkdir .config: read-only file system.API server listening at: [::]:5555
-2019-06-27T02:23:49Z info layer=debugger launching process with args: [/var/task/bin/hello]
+2019-06-27T04:55:40Z info layer=debugger launching process with args: [/var/task/bin/first]
+2019-06-27T04:55:46Z info layer=debugger created breakpoint: &api.Breakpoint{ID:1, Name:"", Addr:0x6dee93, File:"/Users/luis/go/src/github.com/lueimg/my-test-go-services/src/first/main.go", Line:19, FunctionName:"main.handler", Cond:"", Tracepoint:false, TraceReturn:false, Goroutine:false, Stacktrace:0, Variables:[]string(nil), LoadArgs:(*api.LoadConfig)(nil), LoadLocals:(*api.LoadConfig)(nil), HitCount:map[string]uint64{}, TotalHitCount:0x0}
+2019-06-27T04:55:46Z debug layer=debugger continuing
+[32mSTART RequestId: 244fe381-6a9b-174a-3db6-be09eebc1f0c Version: $LATEST[0m
+2019-06-27T04:57:30Z debug layer=debugger halting
+[32mEND RequestId: 244fe381-6a9b-174a-3db6-be09eebc1f0c[0m
+[32mREPORT RequestId: 244fe381-6a9b-174a-3db6-be09eebc1f0c	Duration: 103812.85 ms	Billed Duration: 103900 ms	Memory Size: 128 MB	Max Memory Used: 76 MB	[0m
+[31m{
+  "errorMessage": "RequestId: 244fe381-6a9b-174a-3db6-be09eebc1f0c Process exited before completing request"
+}[0m

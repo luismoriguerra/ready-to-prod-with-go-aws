@@ -20,7 +20,7 @@ func Handler(ctx context.Context) (Response, error) {
 	var buf bytes.Buffer
 
 	body, err := json.Marshal(map[string]interface{}{
-		"message": " Hello test v12",
+		"message": " Hello test v13",
 	})
 	if err != nil {
 		return Response{StatusCode: 404}, err

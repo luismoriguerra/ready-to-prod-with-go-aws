@@ -29,4 +29,10 @@ functions:
       - http:
           path: world
           method: get
+  first:
+    handler: bin/first
+    events:
+      - http:
+          path: first
+          method: get
 

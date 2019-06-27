@@ -8,7 +8,7 @@ Resources:
       Handler: bin/hello
       Runtime: go1.x
       CodeUri: >-
-        /Users/luis/go/src/github.com/lueimg/my-test-go-services/zips/hello.zip
+        /Users/luis/go/src/github.com/lueimg/my-test-go-services/.serverless/my-test-go-services.zip
       MemorySize: 128
       Timeout: 3
       Events:
@@ -47,6 +47,15 @@ Resources:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyTestGoServicesDevWorld.Arn}/invocations
               responses: {}
+          /first:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  'Fn::Sub': >-
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyTestGoServicesDevFirst.Arn}/invocations
+              responses: {}
   MyTestGoServicesDevHelloLambdaPermission:
     Type: 'AWS::Lambda::Permission'
     DependsOn:
@@ -62,7 +71,7 @@ Resources:
       Handler: bin/world
       Runtime: go1.x
       CodeUri: >-
-        /Users/luis/go/src/github.com/lueimg/my-test-go-services/zips/world.zip
+        /Users/luis/go/src/github.com/lueimg/my-test-go-services/.serverless/my-test-go-services.zip
       MemorySize: 128
       Timeout: 3
       Events:
@@ -81,4 +90,30 @@ Resources:
       Action: 'lambda:InvokeFunction'
       FunctionName:
         Ref: MyTestGoServicesDevWorld
+      Principal: apigateway.amazonaws.com
+  MyTestGoServicesDevFirst:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: bin/first
+      Runtime: go1.x
+      CodeUri: >-
+        /Users/luis/go/src/github.com/lueimg/my-test-go-services/.serverless/my-test-go-services.zip
+      MemorySize: 128
+      Timeout: 3
+      Events:
+        Event1:
+          Type: Api
+          Properties:
+            Path: /first
+            Method: get
+            RestApiId:
+              Ref: MyTestGoServices
+  MyTestGoServicesDevFirstLambdaPermission:
+    Type: 'AWS::Lambda::Permission'
+    DependsOn:
+      - MyTestGoServicesDevFirst
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName:
+        Ref: MyTestGoServicesDevFirst
       Principal: apigateway.amazonaws.com
