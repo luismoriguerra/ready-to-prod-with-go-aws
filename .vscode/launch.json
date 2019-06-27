@@ -5,15 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "hello test",
+            "apiVersion": 1,
+            "name": "GO Lambda",
             "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}/node_modules/.bin/sls",
-            "env": {},
-            "args": [
-                "invoke", "local", "-f", "hello"
-            ]
-        }
+            "request": "attach",
+            "mode": "remote",
+            "remotePath": "${workspaceFolder}",
+            "port": 5555,
+            "host": "127.0.0.1",
+          },
     ]
 }

@@ -1,0 +1,84 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: 'SAM template for Serverless framework service: '
+Resources:
+  MyTestGoServicesDevHello:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: bin/hello
+      Runtime: go1.x
+      CodeUri: >-
+        /Users/luis/go/src/github.com/lueimg/my-test-go-services/zips/hello.zip
+      MemorySize: 128
+      Timeout: 3
+      Events:
+        Event1:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+            RestApiId:
+              Ref: MyTestGoServices
+  MyTestGoServices:
+    Type: 'AWS::Serverless::Api'
+    Properties:
+      StageName: dev
+      DefinitionBody:
+        swagger: '2.0'
+        info:
+          title:
+            Ref: 'AWS::StackName'
+        paths:
+          /hello:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  'Fn::Sub': >-
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyTestGoServicesDevHello.Arn}/invocations
+              responses: {}
+          /world:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  'Fn::Sub': >-
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyTestGoServicesDevWorld.Arn}/invocations
+              responses: {}
+  MyTestGoServicesDevHelloLambdaPermission:
+    Type: 'AWS::Lambda::Permission'
+    DependsOn:
+      - MyTestGoServicesDevHello
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName:
+        Ref: MyTestGoServicesDevHello
+      Principal: apigateway.amazonaws.com
+  MyTestGoServicesDevWorld:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: bin/world
+      Runtime: go1.x
+      CodeUri: >-
+        /Users/luis/go/src/github.com/lueimg/my-test-go-services/zips/world.zip
+      MemorySize: 128
+      Timeout: 3
+      Events:
+        Event1:
+          Type: Api
+          Properties:
+            Path: /world
+            Method: get
+            RestApiId:
+              Ref: MyTestGoServices
+  MyTestGoServicesDevWorldLambdaPermission:
+    Type: 'AWS::Lambda::Permission'
+    DependsOn:
+      - MyTestGoServicesDevWorld
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName:
+        Ref: MyTestGoServicesDevWorld
+      Principal: apigateway.amazonaws.com
