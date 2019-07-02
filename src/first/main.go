@@ -16,6 +16,15 @@ type Response events.APIGatewayProxyResponse
 
 func handler(request events.APIGatewayProxyRequest) (Response, error) {
 	var username = request.QueryStringParameters["Username"]
+
+	if len(username) == 0 {
+		return Response{StatusCode: 401}, fmt.Errorf("No Name Given")
+	}
+
+	if username[0] == 'D' {
+		return Response{StatusCode: 401}, fmt.Errorf("Dont like: %s", username)
+	}
+
 	html := fmt.Sprintf("Hello %s from lambda", username)
 
 	var buf bytes.Buffer

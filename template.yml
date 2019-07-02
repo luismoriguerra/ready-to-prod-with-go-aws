@@ -56,6 +56,24 @@ Resources:
                   'Fn::Sub': >-
                     arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyTestGoServicesDevFirst.Arn}/invocations
               responses: {}
+          /question:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  'Fn::Sub': >-
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyTestGoServicesDevQuestion.Arn}/invocations
+              responses: {}
+          /files3:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  'Fn::Sub': >-
+                    arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyTestGoServicesDevFiles3.Arn}/invocations
+              responses: {}
   MyTestGoServicesDevHelloLambdaPermission:
     Type: 'AWS::Lambda::Permission'
     DependsOn:
@@ -116,4 +134,56 @@ Resources:
       Action: 'lambda:InvokeFunction'
       FunctionName:
         Ref: MyTestGoServicesDevFirst
+      Principal: apigateway.amazonaws.com
+  MyTestGoServicesDevQuestion:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: bin/question
+      Runtime: go1.x
+      CodeUri: >-
+        /Users/luis/go/src/github.com/lueimg/my-test-go-services/.serverless/my-test-go-services.zip
+      MemorySize: 128
+      Timeout: 3
+      Events:
+        Event1:
+          Type: Api
+          Properties:
+            Path: /question
+            Method: get
+            RestApiId:
+              Ref: MyTestGoServices
+  MyTestGoServicesDevQuestionLambdaPermission:
+    Type: 'AWS::Lambda::Permission'
+    DependsOn:
+      - MyTestGoServicesDevQuestion
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName:
+        Ref: MyTestGoServicesDevQuestion
+      Principal: apigateway.amazonaws.com
+  MyTestGoServicesDevFiles3:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: bin/files3
+      Runtime: go1.x
+      CodeUri: >-
+        /Users/luis/go/src/github.com/lueimg/my-test-go-services/.serverless/my-test-go-services.zip
+      MemorySize: 128
+      Timeout: 3
+      Events:
+        Event1:
+          Type: Api
+          Properties:
+            Path: /files3
+            Method: get
+            RestApiId:
+              Ref: MyTestGoServices
+  MyTestGoServicesDevFiles3LambdaPermission:
+    Type: 'AWS::Lambda::Permission'
+    DependsOn:
+      - MyTestGoServicesDevFiles3
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName:
+        Ref: MyTestGoServicesDevFiles3
       Principal: apigateway.amazonaws.com

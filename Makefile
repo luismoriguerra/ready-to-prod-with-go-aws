@@ -4,6 +4,9 @@ build:
 	dep ensure -v
 	env GOOS=linux go build -ldflags="-s -w" -o bin/hello hello/main.go
 	env GOOS=linux go build -ldflags="-s -w" -o bin/world world/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/first src/first/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/question src/question/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/files3 src/files3/main.go
 
 clean:
 	rm -rf ./bin ./vendor Gopkg.lock
@@ -28,12 +31,15 @@ build-dlv:
 	GOARCH=amd64 GOOS=linux go build -o debug/dlv github.com/go-delve/delve/cmd/dlv
 
 build-template:
+	yarn install
 	sls sam export -o template.yml
 
 build-debug:
 	env GOOS=linux go build -gcflags='-N -l' -o bin/hello hello/main.go
 	env GOOS=linux go build -gcflags='-N -l' -o bin/world world/main.go
 	env GOOS=linux go build -gcflags='-N -l' -o bin/first src/first/main.go
+	env GOOS=linux go build -gcflags='-N -l' -o bin/question src/question/main.go
+	env GOOS=linux go build -gcflags='-N -l' -o bin/files3 src/files3/main.go
 	rm -rf .serverless/my-test-go-services.zip
 	zip -r .serverless/my-test-go-services.zip ./bin
 

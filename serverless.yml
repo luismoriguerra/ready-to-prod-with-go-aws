@@ -35,4 +35,16 @@ functions:
       - http:
           path: first
           method: get
+  question:
+    handler: bin/question
+    events:
+      - http:
+          path: question
+          method: get
+  files3:
+    handler: bin/files3
+    events:
+      - http:
+          path: files3
+          method: get
 
